@@ -61,6 +61,8 @@ const Partners = () => (
   </section>
 );
 
+
+
 const FeatureCard = ({ img, title, children }) => (
   <div className="feature-card">
     <img src={img} alt={title} />

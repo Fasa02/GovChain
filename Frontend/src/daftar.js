@@ -3,51 +3,36 @@ import React, { useState } from 'react';
 import './App.css';
 
 export default function RegistrationFlow() {
-  const [step, setStep]     = useState(1);
-  const [file, setFile]     = useState(null);
+  const [step, setStep] = useState(1);
+  const [file, setFile] = useState(null);
   const [summary, setSummary] = useState(null);
+  const verifier = 'Pemerintah Kota Surabaya';
+  const [nftHash, setNftHash] = useState('');
 
   // Handler upload PDF
   const handleUpload = e => {
     const pdf = e.target.files[0];
     if (!pdf) return;
     setFile(pdf);
-
-    // *Di sini kamu bisa parse PDF-nya (misal pakai pdfjs),
-    // lalu generate summary dari isinya. Sekarang dummy:*
-    setSummary({
-      jumlah: 124,
-      jenis: 5,
-      pemilik: 20,
-      terbit: '11/2/2023',
-      sampai: '11/2/2028'
-    });
-
+    // dummy summary
+    setSummary({ jumlah:124, jenis:5, pemilik:20, terbit:'11/2/2023', sampai:'11/2/2028' });
     setStep(2);
   };
 
-  // Handler daftarkan ke blockchain
-  const handleMint = () => {
-    // Panggil API smart contract atau backend-mu di sini...
-    // Setelah sukses:
-    setStep(3);
-  };
+  // Handler daftarkan ke blockchain (step 3)
+  const handleMint = () => setStep(3);
 
   return (
     <div className="reg-flow">
       {/* Step indicator */}
       <div className="stepper">
-        <div className={`step ${step >= 1 ? 'active' : ''}`}>
-          <div className="circle">1</div><div className="label">Unggah</div>
-          <div className="bar" />
-        </div>
-        <div className={`step ${step >= 2 ? 'active' : ''}`}>
-          <div className="circle">2</div><div className="label">Rangkuman</div>
-          <div className="bar" />
-        </div>
-        <div className={`step ${step >= 3 ? 'active' : ''}`}>
-          <div className="circle">3</div><div className="label">Sukses</div>
-        </div>
+        {['Unggah','Penerbitan NFT','Sukses'].map((label,i) => (
+          <div key={i} className={`step ${step > i ? 'active' : ''}`}>
+            <div className="circle">{step > i ? '✔' : i+1}</div>
+            <div className="label">{label}</div>
+            {i < 2 && <div className="bar" />}            
+          </div>
+        ))}
       </div>
 
       {/* CONTENT */}
@@ -65,31 +50,36 @@ export default function RegistrationFlow() {
       )}
 
       {step === 2 && summary && (
-        <div className="step-panel mint-summary">
-          <div className="summary-card">
-            <h3>Rangkuman</h3>
-            <div className="grid-two">
-              <div><strong>{summary.jumlah}</strong><br/>Jumlah Izin</div>
-              <div><strong>{summary.jenis}</strong><br/>Jenis Izin</div>
-              <div><strong>{summary.pemilik}</strong><br/>Pemilik Usaha</div>
-            </div>
-            <p>Terbit: {summary.terbit}<br/>Hingga: {summary.sampai}</p>
-          </div>
-          <div className="mint-card">
-            <h3>Terbitkan NFT</h3>
-            <p>Daftarkan detail izin ini ke blockchain sebagai NFT.</p>
-            <button className="btn-primary" onClick={handleMint}>
-              Daftarkan ke Blockchain
-            </button>
-          </div>
+        <div className="step-panel mint-card">
+          <h3>Terbitkan NFT</h3>
+          <p>Anda akan mencatat izin ini secara permanen ke blockchain dan menerbitkan aset NFT sebagai bukti otentik. Pastikan data sudah benar.</p>
+          <button className="btn-primary" onClick={handleMint}>
+            Daftarkan ke Blockchain
+          </button>
         </div>
       )}
 
       {step === 3 && (
         <div className="step-panel success-card">
           <h3>Daftar ke Blockchain Sukses</h3>
-          <img src="/images/success.png" alt="Sukses" className="success-icon"/>
-          <button className="btn-primary">
+          <div className="success-content">
+            <div className="success-info">
+              <label>Wallet Verifikator</label>
+              <p>{verifier} ✅</p>
+              <label>NFT Hash</label>
+              <div className="hash-input">
+                <input
+                  type="text"
+                  value={nftHash}
+                  onChange={e => setNftHash(e.target.value)}
+                  placeholder="3Qda...10HQA"
+                />
+                <button className="btn-secondary">🔍</button>
+              </div>
+            </div>
+            <img src="/images/cube-plus.png" alt="" className="success-icon"/>
+          </div>
+          <button className="btn-primary explorer-btn">
             Lihat di Blockchain Explorer
           </button>
         </div>
