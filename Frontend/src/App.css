@@ -1,0 +1,146 @@
+
+:root {
+  --purple-700: #6b21a8;
+  --purple-900: #4c1d95;
+  --gray-600: #4b5563;
+  --gray-300: #d1d5db;
+  --orange-500: #f97316;
+  --orange-600: #ea580c;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.header, .footer {
+  background: white;
+}
+
+.header { padding: 16px 0; }
+
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: white;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 8px 24px;
+}
+
+.navbar-logo { height: 32px; }
+
+.nav-links a {
+  color: var(--gray-600);
+  text-decoration: none;
+  margin: 0 12px;
+}
+
+.nav-links a:hover { color: var(--purple-700); }
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 0;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.button:hover {
+  background: var(--purple-600);
+}
+
+.button img {
+  display: block;
+  max-height: 56px; /* sesuai tinggi yang kamu inginkan */
+  width: auto;
+}
+
+
+.hamburger { display: none; cursor: pointer; }
+
+@media (max-width: 768px) {
+  .nav-links, .button { display: none; }
+  .hamburger { display: block; }
+}
+
+/* Hero */
+.Hero { padding: 64px 10% 5% 15%; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+.Hero-text { flex: 1;}
+.Hero-text h1 { font-size: 2.5rem; line-height: 2.5rem; color: var(--purple-700); margin-bottom: 24px; }
+.Hero-text p { color: var(--gray-600); margin-bottom: 32px; line-height: 1.6; }
+.Hero-buttons a { text-decoration: none; padding: 12px 24px; border-radius: 9999px; font-weight: 600; margin: 0 8px; }
+.Hero-buttons .primary { background: var(--orange-500); color: white; }
+.Hero-buttons .primary:hover { background: var(--orange-600); }
+.Hero-buttons .secondary { border: 2px solid var(--orange-500); color: var(--orange-500); }
+.Hero-buttons .secondary:hover { background: rgba(255, 243, 233, .5); }
+.Hero-image { flex: 1; text-align: center; }
+.Hero-image img { max-width: 300px; width: 75%; }
+
+/* Partners */
+.partners { background: var(--purple-700); padding: 32px 0; }
+.partners h2 { color: white; text-align: center; margin-bottom: 24px; }
+.partners-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; }
+.partners-logos img { height: 64px; }
+
+/* Why Blockchain */
+.why { padding: 64px 0; text-align: center; }
+.why h2 { color: var(--purple-700); font-size: 1.5rem; margin-bottom: 16px; }
+.why p { color: var(--gray-600); margin-bottom: 48px; }
+.features { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; }
+.feature-card { background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; padding: 24px; flex: 1; min-width: 240px; }
+.feature-card img { height: 48px; margin-bottom: 16px; }
+.feature-card h3 { margin-bottom: 8px; }
+.feature-card p { color: var(--gray-600); font-size: 0.875rem; }
+
+/* Verification */
+.verification { background: var(--purple-700); padding: 64px 0; text-align: center; }
+.verification h2 { color: white; margin-bottom: 48px; }
+.methods { display: flex; justify-content: center; }
+.method-card { background: white; border-radius: 8px; padding: 32px; min-width: 200px; max-width: 300px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
+.method-card.clickable:hover { box-shadow: 0 6px 10px rgba(0,0,0,0.15);}
+.method-card img { height: 64px; margin-bottom: 16px; }
+.method-card h3 { margin: 0; }
+.method-card p { margin-top: 12px; color: #4a5568; font-size: 0.875rem; line-height: 1.5;}
+/* Footer */
+.footer { background: var(--purple-900); color: var(--gray-300); padding: 48px 0; }
+.footer-container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; }
+.footer-section { flex: 1; min-width: 200px; }
+.footer-section h3 { color: white; margin-bottom: 16px; }
+.footer-links a { color: var(--gray-300); text-decoration: none; display: block; margin-bottom: 8px; }
+.footer-links a:hover { text-decoration: underline; }
+.social-icons a img { height: 24px; margin: 0 8px; }
+
+
+/* SCAN */
+.scan-page{padding:4rem 1.5rem;background:#fff;text-align:center;}
+.scan-page h2{font-size:3.5rem;line-height:1.5;font-weight:1000;color:#78336C;margin-bottom:.75rem}
+.scan-page p{font-size:1.2rem;color:#4A5568;margin-bottom:2rem;}
+.scan-actions{display:inline-flex;gap:1rem;}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;border:none;border-radius:9999px;font-size:1.1rem;font-weight:600;cursor:pointer;transition:background-color .2s,box-shadow .2s; margin-bottom: 20%;}
+.btn-icon{width:1.25rem;height:1.25rem}
+.btn-primary{background:#FF9B10;color:#fff}
+.btn-primary:hover{background:#EA580C;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+.btn-secondary{background:#FF9B10;color:#fff;}
+.btn-secondary:hover{background:#EA580C;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+
