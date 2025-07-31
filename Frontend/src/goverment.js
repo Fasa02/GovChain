@@ -1,38 +1,8 @@
 import React from 'react';
 import './App.css';
 import ScanQR from './ScanQR';
-import Goverment from './goverment';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import DetailPage from './detailPage';
-import RegistrationFlow from './daftar';
 
-
-const Header = () => (
-  <header className="header">
-    <div className="container navbar">
-      <div className="navbar-content">
-        <img src="/images/logoo.png" alt="GovChain Permit Logo" className="navbar-logo" />
-        <nav className="nav-links">
-          <a href="#about">Tentang</a>
-          <a href="#institusi">Kementrian/Lembaga</a>
-          <a href="#blockchain">Blockchain</a>
-          <a href="#verifikasi">Verifikasi</a>
-        </nav>
-        <button className="button">
-          <img
-            src="/images/connect.png"
-            alt="Connect Wallet"
-            className="h-6 w-auto"
-          />
-        </button>
-
-        <div className="hamburger">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-        </div>
-      </div>
-    </div>
-  </header>
-);
 
 const Hero = () => (
   <section className="Hero">
@@ -42,8 +12,8 @@ const Hero = () => (
     Dengan Blockchain</h1>
       <p>Ucapkan selamat tinggal pada keraguan dan proses yang rumit. Dengan GovChain Permit, pastikan keaslian surat izin dari Pemerintah Kota secara instan menggunakan teknologi blockchain yang transparan dan tidak dapat diubah.</p>
       <div className="Hero-buttons">
-        <a href="/daftar" className="primary">Verifikasi Sekarang</a>
-        <a href="#daftar" className="secondary">Daftarkan Izin</a>
+        <a href="#verifikasi" className="primary">Verifikasi Sekarang</a>
+        <a href="#dashboard" className="secondary">Dashboard</a>
       </div>
     </div>
     <div className="Hero-image">
@@ -102,19 +72,35 @@ function MethodCard({ img, title, onClick, description, clickable }) {
 }
 
 
-function Verification() {
-  const navigate = useNavigate();
+function FiturPemerintah() {
   return (
-     <section className="verification" id="metode-verifikasi">
-      <div className="container">
-        <h2>Metode Verifikasi</h2>
-        <div className="methods justify-center">
+    <section className="for-government">
+      <div className="fg-container">
+        <span className="fg-label">Untuk Pemerintah</span>
+        <h2 className="fg-title">Fitur GovChain Permit</h2>
+        <p className="fg-subtitle">
+          Modernisasi Tata Kelola Perizinan Anda dengan Fitur yang Andal dan Efisien.
+        </p>
+        <div className="fg-grid">
           <MethodCard
-            img="/images/scan.png"
-            title="Scan QR"
-            description="Arahkan kamera atau unggah gambar QR code untuk verifikasi instan."
-            clickable
-            onClick={() => navigate('/scan')}
+            img="/images/keamanan.svg"
+            title="Keamanan Arsip"
+            description="Hilangkan risiko kerentanan atau kehilangan arsip fisik. Setiap izin tercatat secara digital di blockchain, memastikan salinan asli selalu tersedia saat dokumen asli tidak tersedia."
+          />
+          <MethodCard
+            img="/images/masal.svg"
+            title="Pencatatan Izin Massal"
+            description="Hemat waktu dan minimalkan entri manual. Sistem kami mampu memproses batch izin sekaligus—otomatisasi pencatatan hash digital yang cepat dan akurat."
+          />
+          <MethodCard
+            img="/images/transfer.svg"
+            title="Mudah Transfer Kepemilikan Izin"
+            description="Optimalisasi seluruh proses pengalihan izin untuk klien, mitra, dan internal instansi. Dengan satu platform, kelola transfer izin serta laporan status dengan mudah."
+          />
+          <MethodCard
+            img="/images/laporan.svg"
+            title="Dasbor Analitik & Laporan"
+            description="Pantau seluruh aktivitas perizinan real‑time dari dashboard terpadu. Insight lengkap membantu instansi meningkatkan akuntabilitas dan mempercepat pengambilan keputusan."
           />
         </div>
       </div>
@@ -122,29 +108,29 @@ function Verification() {
   );
 }
 
+function MulaiMenggunakan() {
+  const navigate = useNavigate();
+  return (
+    <section className="get-started">
+      <div className="gs-container">
+        <h2 className="gs-title">Mulai Menggunakan GovChain Permit</h2>
+        <div className="gs-buttons">
+          <button className="gs-primary" onClick={() => navigate('/buat-izin')}>
+            Buat Izin
+          </button>
+          <button className="gs-secondary" onClick={() => navigate('/dashboard')}>
+            Menuju Dashboard
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-const Footer = () => (
-  <footer className="footer">
-    <div className="container footer-container">
-      <div className="footer-section">
-        <h3>PT. Blockchain Perintahtama</h3>
-        <div className="footer-links"><a href="#tentang">Tentang Kami</a><a href="#pendukung">Lembaga Pendukung</a><a href="#apa-itu">Apa itu Blockchain</a></div>
-      </div>
-      <div className="social-icons">
-        {['instagram','whatsapp','github'].map(n => (
-          <a key={n} href="#">
-            <img src={`/images/icon-${n}.png`} alt={n} />
-          </a>
-        ))}
-      </div>
-    </div>
-  </footer>
-);
 
 export default function App() {
   return (
     <>
-      <Header />
       <main>
         <Routes>
           <Route
@@ -154,18 +140,14 @@ export default function App() {
                 <Hero />
                 <Partners />
                 <WhyBlockchain />
-                <Verification />
+                 <FiturPemerintah />
+                <MulaiMenggunakan />
               </>
             }
           />
           <Route path="/scan"       element={<ScanQR />} />
-          <Route path="/verifikasi" element={<Verification />} />
-          <Route path="/detail" element={<DetailPage />} />
-          <Route path="/goverment" element={<Goverment />} />  
-          <Route path="/daftar" element={<RegistrationFlow />} /> 
         </Routes>
       </main>
-      <Footer />
     </>
   );
 }
