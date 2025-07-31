@@ -6,10 +6,11 @@ export default function RegistrationFlow() {
   const [step, setStep]     = useState(1);
   const [file, setFile]     = useState(null);
   const [summary, setSummary] = useState(null);
+  const [hash, setHash] = useState(null);
 
   // Handler upload PDF
   const handleUpload = async (e) => {
-    console.log('📥 handleUpload terpanggil');  // ← CEK DULU INI MUNCUL NGGAK
+    console.log('📥 handleUpload terpanggil');
 
     const pdf = e.target.files[0];
     if (!pdf) return;
@@ -17,8 +18,8 @@ export default function RegistrationFlow() {
     setFile(pdf);
 
     const formData = new FormData();
-    formData.append('file', file);
-    console.log("📁 File yang dikirim:", file);
+    formData.append('file', pdf);
+    console.log("📁 File yang dikirim:", pdf);
 
     try {
       const response = await fetch('http://localhost:3000/api/hash/upload', {
@@ -29,12 +30,16 @@ export default function RegistrationFlow() {
       const data = await response.json();
       console.log('✅ File terkirim:', data);
 
+      // Store IPFS hash
+      setHash(data.hash);
+      
       setSummary({
         jumlah: 124,
         jenis: 5,
         pemilik: 20,
         terbit: '11/2/2023',
         sampai: '11/2/2028',
+        ipfsHash: data.hash // Store IPFS hash in summary
       });
 
       setStep(2);
@@ -46,10 +51,36 @@ export default function RegistrationFlow() {
 
 
   // Handler daftarkan ke blockchain
-  const handleMint = () => {
-    // Panggil API smart contract atau backend-mu di sini...
-    // Setelah sukses:
-    setStep(3);
+  const handleMint = async () => {
+    try {
+      console.log('🔗 Minting to blockchain...');
+      
+      const response = await fetch('http://localhost:3000/api/hash/mint', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(summary)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('✅ Minting successful:', data);
+      
+      if (data.hash) {
+        setHash(data.hash);
+        setStep(3);
+      } else {
+        throw new Error('No hash received from server');
+      }
+    } catch (err) {
+      console.error('❌ Minting failed:', err);
+      alert('Failed to mint NFT. Please try again.');
+    }
   };
 
   return (
@@ -108,7 +139,13 @@ export default function RegistrationFlow() {
         <div className="step-panel success-card">
           <h3>Daftar ke Blockchain Sukses</h3>
           <img src="/images/success.png" alt="Sukses" className="success-icon"/>
-          <button className="btn-primary">
+          {hash && (
+            <div className="hash-display">
+              <p>Transaction Hash:</p>
+              <code>{hash}</code>
+            </div>
+          )}
+          <button className="btn-primary" onClick={() => window.open(`https://explorer.example.com/tx/${hash}`)}>
             Lihat di Blockchain Explorer
           </button>
         </div>
