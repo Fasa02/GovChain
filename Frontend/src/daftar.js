@@ -8,23 +8,42 @@ export default function RegistrationFlow() {
   const [summary, setSummary] = useState(null);
 
   // Handler upload PDF
-  const handleUpload = e => {
+  const handleUpload = async (e) => {
+    console.log('📥 handleUpload terpanggil');  // ← CEK DULU INI MUNCUL NGGAK
+
     const pdf = e.target.files[0];
     if (!pdf) return;
+
     setFile(pdf);
 
-    // *Di sini kamu bisa parse PDF-nya (misal pakai pdfjs),
-    // lalu generate summary dari isinya. Sekarang dummy:*
-    setSummary({
-      jumlah: 124,
-      jenis: 5,
-      pemilik: 20,
-      terbit: '11/2/2023',
-      sampai: '11/2/2028'
-    });
+    const formData = new FormData();
+    formData.append('file', file);
+    console.log("📁 File yang dikirim:", file);
 
-    setStep(2);
+    try {
+      const response = await fetch('http://localhost:3000/api/hash/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log('✅ File terkirim:', data);
+
+      setSummary({
+        jumlah: 124,
+        jenis: 5,
+        pemilik: 20,
+        terbit: '11/2/2023',
+        sampai: '11/2/2028',
+      });
+
+      setStep(2);
+    } catch (err) {
+      console.error('❌ Upload gagal:', err);
+    }
   };
+
+
 
   // Handler daftarkan ke blockchain
   const handleMint = () => {
