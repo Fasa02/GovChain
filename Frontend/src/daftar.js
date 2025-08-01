@@ -1,26 +1,37 @@
-// src/RegistrationFlow.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Web3Service from './Web3.js';
 import './App.css';
 
 export default function RegistrationFlow() {
-  const [step, setStep]     = useState(1);
-  const [file, setFile]     = useState(null);
+  const [step, setStep] = useState(1);
+  const [file, setFile] = useState(null);
   const [summary, setSummary] = useState(null);
   const [hash, setHash] = useState(null);
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState('');
+
+  useEffect(() => {
+    checkWalletConnection();
+  }, []);
+
+  const checkWalletConnection = async () => {
+    const connected = await Web3Service.connectWallet();
+    setIsWalletConnected(connected);
+    if (connected) {
+      setWalletAddress(Web3Service.account);
+    }
+  };
 
   // Handler upload PDF
   const handleUpload = async (e) => {
     console.log('📥 handleUpload terpanggil');
-
     const pdf = e.target.files[0];
     if (!pdf) return;
 
     setFile(pdf);
-
     const formData = new FormData();
     formData.append('file', pdf);
-    console.log("📁 File yang dikirim:", pdf);
-
+    
     try {
       const response = await fetch('http://localhost:3000/api/hash/upload', {
         method: 'POST',
@@ -29,8 +40,6 @@ export default function RegistrationFlow() {
 
       const data = await response.json();
       console.log('✅ File terkirim:', data);
-
-      // Store IPFS hash
       setHash(data.hash);
       
       setSummary({
@@ -39,7 +48,7 @@ export default function RegistrationFlow() {
         pemilik: 20,
         terbit: '11/2/2023',
         sampai: '11/2/2028',
-        ipfsHash: data.hash // Store IPFS hash in summary
+        ipfsHash: data.hash
       });
 
       setStep(2);
@@ -48,38 +57,30 @@ export default function RegistrationFlow() {
     }
   };
 
-
-
   // Handler daftarkan ke blockchain
   const handleMint = async () => {
     try {
+      if (!isWalletConnected) {
+        const connected = await Web3Service.connectWallet();
+        if (!connected) {
+          alert('Please connect your wallet first');
+          return;
+        }
+        setIsWalletConnected(true);
+        setWalletAddress(Web3Service.account);
+      }
+
       console.log('🔗 Minting to blockchain...');
       
-      const response = await fetch('http://localhost:3000/api/hash/mint', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(summary)
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log('✅ Minting successful:', data);
+      // Mint NFT directly using the IPFS hash from summary
+      const transaction = await Web3Service.mintPermit(summary.ipfsHash);
       
-      if (data.hash) {
-        setHash(data.hash);
-        setStep(3);
-      } else {
-        throw new Error('No hash received from server');
-      }
+      console.log('✅ Minting successful:', transaction);
+      setHash(transaction.transactionHash);
+      setStep(3);
     } catch (err) {
       console.error('❌ Minting failed:', err);
-      alert('Failed to mint NFT. Please try again.');
+      alert('Failed to mint NFT: ' + err.message);
     }
   };
 
@@ -98,6 +99,17 @@ export default function RegistrationFlow() {
         <div className={`step ${step >= 3 ? 'active' : ''}`}>
           <div className="circle">3</div><div className="label">Sukses</div>
         </div>
+      </div>
+
+      {/* Wallet Status */}
+      <div className="wallet-status">
+        {isWalletConnected ? (
+          <p>Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</p>
+        ) : (
+          <button className="btn-connect" onClick={checkWalletConnection}>
+            Connect Wallet
+          </button>
+        )}
       </div>
 
       {/* CONTENT */}
@@ -124,12 +136,17 @@ export default function RegistrationFlow() {
               <div><strong>{summary.pemilik}</strong><br/>Pemilik Usaha</div>
             </div>
             <p>Terbit: {summary.terbit}<br/>Hingga: {summary.sampai}</p>
+            <p>IPFS Hash: {summary.ipfsHash}</p>
           </div>
           <div className="mint-card">
             <h3>Terbitkan NFT</h3>
             <p>Daftarkan detail izin ini ke blockchain sebagai NFT.</p>
-            <button className="btn-primary" onClick={handleMint}>
-              Daftarkan ke Blockchain
+            <button 
+              className="btn-primary" 
+              onClick={handleMint}
+              disabled={!isWalletConnected}
+            >
+              {isWalletConnected ? 'Daftarkan ke Blockchain' : 'Connect Wallet First'}
             </button>
           </div>
         </div>
@@ -145,7 +162,7 @@ export default function RegistrationFlow() {
               <code>{hash}</code>
             </div>
           )}
-          <button className="btn-primary" onClick={() => window.open(`https://explorer.example.com/tx/${hash}`)}>
+          <button className="btn-primary" onClick={() => window.open(`http://127.0.0.1:8545 `)}>
             Lihat di Blockchain Explorer
           </button>
         </div>
