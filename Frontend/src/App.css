@@ -249,6 +249,12 @@ body, html {
 .success-card{background:#fff;padding:2rem;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);text-align:center;}
 .success-icon{width:64px;margin:1rem 0;}
 .step-nav{display:flex;justify-content:flex-end;gap:1rem;margin-top:1rem;}
+.btn-primary { background:#f97316; color:#fff; border:none; padding:0.75rem 1.5rem; border-radius:9999px; cursor:pointer; }
+.btn-primary:hover { background:#ea580c; }
+.btn-secondary { background:transparent; color:#6b21a8; border:2px solid #6b21a8; padding:0.75rem 1.5rem; border-radius:9999px; cursor:pointer; }
+.btn-secondary:hover { background:#6b21a8; color:#fff; }
+.explorer-btn { display:block; margin:2rem auto 0; padding:0.75rem 1.5rem; border:none; border-radius:9999px; background:#f97316; color:#fff; cursor:pointer; }
+.explorer-btn:hover { background:#ea580c; }
 
 .hash-display {
   margin: 20px 0;
@@ -264,4 +270,218 @@ body, html {
   font-size: 14px;
   color: #333;
   margin-top: 5px;
+}
+
+/* ==== Hover Enhancements ==== */
+
+/* 1. Smooth transitions on interactive elements */
+.btn-primary, .btn-secondary,
+.method-card, .feature-card, .fg-card, .mint-card, .summary-card, .success-card {
+  transition: all 0.2s ease-in-out;
+}
+
+/* 2. Button hover: slight scale and shadow */
+.btn-primary:hover, .btn-secondary:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 3. Card hover: lift effect */
+.method-card:hover, .feature-card:hover, .fg-card:hover, .mint-card:hover, .summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+}
+
+/* 4. Upload-box drag-over feedback */
+.upload-box.drag-over {
+  background: rgba(107,33,168,0.1);
+  border-color: #6b21a8;
+}
+
+/* 5. Stepper circle pulse animation on active */
+.step .circle {
+  transition: background 0.3s, transform 0.3s;
+}
+.step.active .circle {
+  animation: pulse 1s infinite alternate;
+}
+@keyframes pulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.1); }
+}
+
+/* 6. Explorer button glow on hover */
+.explorer-btn:hover {
+  box-shadow: 0 0 8px rgba(249,115,22,0.6), 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* 7. Smooth focus for NFT hash input */
+.hash-input input:focus {
+  outline: none;
+  border-color: #F97316;
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.2);
+}
+
+/* 8. Accessible focus state for buttons & links */
+.btn-primary:focus, .btn-secondary:focus, a:focus {
+  outline: 2px dashed #F97316;
+  outline-offset: 4px;
+}
+
+/* Hero image hover/touch zoom */
+.Hero-image img { transition: transform 0.3s ease-in-out; }
+.Hero-image img:hover, .Hero-image img:active { transform: scale(1.05); }
+
+.dashboard-container {
+  display: flex;
+  font-family: sans-serif;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #fefefe;
+}
+
+.title {
+  font-size: 2rem;
+  color: #7b2cbf;
+  margin-bottom: 1.5rem;
+}
+
+.summary-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+}
+
+.card .value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #7b2cbf;
+}
+
+.card .label {
+  color: #555;
+}
+
+.shortcut-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.shortcut-button {
+  padding: 1rem 1.5rem;
+  border-radius: 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+}
+
+.shortcut-button.orange {
+  background-color: #ffa500;
+}
+
+.shortcut-button.gold {
+  background-color: #f4a261;
+}
+
+.activity-section {
+  margin-top: 2rem;
+}
+
+.activity-section h2 {
+  margin-bottom: 1rem;
+  color: #7b2cbf;
+}
+
+.activity-placeholder {
+  height: 100px;
+  background: #eee;
+  border: 2px solid #ff00aa;
+  border-radius: 10px;
+}
+
+.sidebar {
+  width: 60px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar.expanded {
+  width: 220px;
+}
+
+.logo {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: #7b2cbf;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  padding: 1rem;
+  cursor: pointer;
+  color: #555;
+  transition: background-color 0.2s;
+}
+
+.menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.menu li.active {
+  background-color: #7b2cbf;
+  color: white;
+  font-weight: bold;
+}
+
+.bottom-info {
+  padding: 1rem;
+  font-size: 0.85rem;
+}
+
+.user-box {
+  background-color: #f3c3f3;
+  padding: 0.75rem;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  color: #4c004c;
+  font-weight: bold;
+}
+
+.disconnect-btn {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #eee;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }

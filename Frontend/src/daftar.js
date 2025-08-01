@@ -12,7 +12,9 @@ export default function RegistrationFlow() {
   const handleUpload = async (e) => {
     console.log('📥 handleUpload terpanggil');
 
-    const pdf = e.target.files[0];
+    const pdf = e.target.files
+      ? e.target.files[0]
+      : e.dataTransfer.files[0];
     if (!pdf) return;
 
     setFile(pdf);
@@ -103,7 +105,10 @@ export default function RegistrationFlow() {
       {/* CONTENT */}
       {step === 1 && (
         <div className="step-panel">
-          <div className="upload-box">
+             <div
+            className="upload-box"
+            onDragOver={e => e.preventDefault()}
+            onDrop={handleUpload}>
             <img src="/images/pdf-icon.png" alt="PDF" className="upload-icon"/>
             <p>Unggah PDF berisi detail perizinan</p>
             <label className="btn-primary">

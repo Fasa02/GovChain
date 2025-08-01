@@ -5,6 +5,7 @@ import Goverment from './goverment';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import DetailPage from './detailPage';
 import RegistrationFlow from './daftar';
+import DashboardPage from './DashboardPage';
 
 
 const Header = () => (
@@ -127,13 +128,13 @@ const Footer = () => (
   <footer className="footer">
     <div className="container footer-container">
       <div className="footer-section">
-        <h3>PT. Blockchain Perintahtama</h3>
+        <h3>Pemerintah Kota Surabaya</h3>
         <div className="footer-links"><a href="#tentang">Tentang Kami</a><a href="#pendukung">Lembaga Pendukung</a><a href="#apa-itu">Apa itu Blockchain</a></div>
       </div>
       <div className="social-icons">
-        {['instagram','whatsapp','github'].map(n => (
+        {['instagram','whatsapp','X'].map(n => (
           <a key={n} href="#">
-            <img src={`/images/icon-${n}.png`} alt={n} />
+            <img src={`images/icon-${n}.png`} alt={n} />
           </a>
         ))}
       </div>
@@ -163,6 +164,8 @@ export default function App() {
           <Route path="/detail" element={<DetailPage />} />
           <Route path="/goverment" element={<Goverment />} />  
           <Route path="/daftar" element={<RegistrationFlow />} /> 
+          <Route path="/dashboard" element={<DashboardPage />} />
+
         </Routes>
       </main>
       <Footer />
