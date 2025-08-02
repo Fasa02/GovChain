@@ -334,7 +334,7 @@ body, html {
 
 .dashboard-container {
   display: flex;
-  font-family: sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .main-content {
@@ -345,7 +345,7 @@ body, html {
 
 .title {
   font-size: 2rem;
-  color: #7b2cbf;
+  color: #78336C;
   margin-bottom: 1.5rem;
 }
 
@@ -360,14 +360,23 @@ body, html {
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  flex: 1;
+  text-align: left;
+  display: flex;
+  flex-direction:row;
+  min-width: 220px;
+}
+
+.card .isi{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 .card .value {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #7b2cbf;
+  color: #78336C;
+  padding-bottom: 5%;
 }
 
 .card .label {
@@ -376,6 +385,7 @@ body, html {
 
 .shortcut-section {
   display: flex;
+  flex-direction: row;
   gap: 1rem;
   margin-bottom: 2rem;
 }
@@ -388,14 +398,20 @@ body, html {
   cursor: pointer;
   color: white;
   font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
 }
 
 .shortcut-button.orange {
-  background-color: #ffa500;
+  background-color: #FF9B10;
 }
 
 .shortcut-button.gold {
-  background-color: #f4a261;
+  background-color: #F6F6F6;
+  border: 3px solid #FF9B10;
+  color: #FF9B10;
 }
 
 .activity-section {
@@ -404,7 +420,7 @@ body, html {
 
 .activity-section h2 {
   margin-bottom: 1rem;
-  color: #7b2cbf;
+  color: #78336C;
 }
 
 .activity-placeholder {
@@ -415,8 +431,8 @@ body, html {
 }
 
 .sidebar {
-  width: 60px;
-  background-color: #fff;
+  width: 66px;
+  background-color: #FFF;
   border-right: 1px solid #ddd;
   transition: width 0.3s ease;
   overflow: hidden;
@@ -429,14 +445,22 @@ body, html {
 }
 
 .sidebar.expanded {
-  width: 220px;
+  width: 250px;
 }
 
 .logo {
-  text-align: center;
-  padding: 1rem;
-  font-size: 1.5rem;
-  color: #7b2cbf;
+  text-align: left;
+  padding: 0.7rem;
+  color:#78336C;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.logo h3{
+  font-size: 1.3rem;
+  align-items: center;
+  margin-left: 19px;
 }
 
 .menu {
@@ -450,20 +474,29 @@ body, html {
   cursor: pointer;
   color: #555;
   transition: background-color 0.2s;
+  border-radius: 18px;
+  margin: 5%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #F6F6F6;
 }
+.ikon { 
+  margin-right: 20px;
 
+}
 .menu li:hover {
   background-color: #f0f0f0;
 }
 
 .menu li.active {
-  background-color: #7b2cbf;
+  background-color: #78336C;
   color: white;
   font-weight: bold;
 }
 
 .bottom-info {
-  padding: 1rem;
+  padding: 0.5rem;
   font-size: 0.85rem;
 }
 
@@ -471,10 +504,13 @@ body, html {
   background-color: #f3c3f3;
   padding: 0.75rem;
   border-radius: 12px;
-  margin-bottom: 0.5rem;
+  margin-bottom: 5%;
   text-align: center;
   color: #4c004c;
   font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .disconnect-btn {
@@ -484,4 +520,7 @@ body, html {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
