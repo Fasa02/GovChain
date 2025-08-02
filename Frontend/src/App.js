@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import ScanQR from './ScanQR';
 import Goverment from './goverment';
-import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import DetailPage from './detailPage';
 import RegistrationFlow from './daftar';
 import DashboardPage from './DashboardPage';
@@ -143,9 +143,12 @@ const Footer = () => (
 );
 
 export default function App() {
+  const { pathname } = useLocation();
+  const isDashboard = pathname === '/dashboard';
+
   return (
     <>
-      <Header />
+       {!isDashboard && <Header />}
       <main>
         <Routes>
           <Route
@@ -168,7 +171,7 @@ export default function App() {
 
         </Routes>
       </main>
-      <Footer />
+       {!isDashboard && <Footer />}
     </>
   );
 }
