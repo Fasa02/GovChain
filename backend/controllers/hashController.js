@@ -6,7 +6,6 @@ const { uploadToLocalIPFS } = require('../utils/ipfsClient');
 
 const hashAndUpload = async (req, res) => {
   try {
-
     if (!req.files || !req.files.pdf) {
       return res.status(400).json({ error: 'No PDF file uploaded.' });
     }
