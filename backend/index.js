@@ -20,7 +20,7 @@ app.use(cors({
 app.use(express.json());
 app.use(fileUpload({
   createParentPath: true,
-  limits: { fileSize: 0 * 1024 * 1024 } // 50MB max file size
+  limits: { fileSize: 10 * 1024 * 1024 } // 50MB max file size
 }));
 
 // Routes
