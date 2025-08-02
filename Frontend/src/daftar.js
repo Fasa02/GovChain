@@ -162,7 +162,7 @@ export default function RegistrationFlow() {
               <code>{hash}</code>
             </div>
           )}
-          <button className="btn-primary" onClick={() => window.open(`http://127.0.0.1:8545 `)}>
+          <button className="btn-primary" onClick={() => window.open(`https://custom-block-explorer.vercel.app/tx/${hash}`)}>
             Lihat di Blockchain Explorer
           </button>
         </div>
