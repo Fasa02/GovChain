@@ -101,16 +101,6 @@ export default function RegistrationFlow() {
         </div>
       </div>
 
-      {/* Wallet Status */}
-      <div className="wallet-status">
-        {isWalletConnected ? (
-          <p>Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</p>
-        ) : (
-          <button className="btn-connect" onClick={checkWalletConnection}>
-            Connect Wallet
-          </button>
-        )}
-      </div>
 
       {/* CONTENT */}
       {step === 1 && (

@@ -5,7 +5,7 @@ import Goverment from './goverment';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import DetailPage from './detailPage';
 import RegistrationFlow from './daftar';
-
+import WalletStatus from './WalletStatus'; 
 
 const Header = () => (
   <header className="header">
@@ -18,13 +18,9 @@ const Header = () => (
           <a href="#blockchain">Blockchain</a>
           <a href="#verifikasi">Verifikasi</a>
         </nav>
-        <button className="button">
-          <img
-            src="/images/connect.png"
-            alt="Connect Wallet"
-            className="h-6 w-auto"
-          />
-        </button>
+        <div className="wallet-status-header">
+          <WalletStatus />
+        </div>
 
         <div className="hamburger">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
@@ -42,7 +38,7 @@ const Hero = () => (
     Dengan Blockchain</h1>
       <p>Ucapkan selamat tinggal pada keraguan dan proses yang rumit. Dengan GovChain Permit, pastikan keaslian surat izin dari Pemerintah Kota secara instan menggunakan teknologi blockchain yang transparan dan tidak dapat diubah.</p>
       <div className="Hero-buttons">
-        <a href="/daftar" className="primary">Verifikasi Sekarang</a>
+        <a href="/scan" className="primary">Verifikasi Sekarang</a>
         <a href="#daftar" className="secondary">Daftarkan Izin</a>
       </div>
     </div>

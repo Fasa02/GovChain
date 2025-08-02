@@ -697,8 +697,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -716,8 +715,8 @@
       ]
     },
     "C:\\Users\\Aryabima\\GovChain\\smart-contract\\contracts\\Permit.sol": {
-      "lastModificationDate": 1754042490626,
-      "contentHash": "bcfcf58c17b19ebe4fbd0a1a600b2b79",
+      "lastModificationDate": 1754126752396,
+      "contentHash": "d0fc7eddec48e67bdfea72adaadd613a",
       "sourceName": "contracts/Permit.sol",
       "solcConfig": {
         "version": "0.8.28",
@@ -734,8 +733,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -776,8 +774,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -815,8 +812,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -860,8 +856,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -897,8 +892,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -937,8 +931,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -974,8 +967,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1014,8 +1006,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1051,8 +1042,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1090,8 +1080,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1127,8 +1116,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1166,8 +1154,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1205,8 +1192,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1242,8 +1228,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1279,8 +1264,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1316,8 +1300,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1356,8 +1339,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"
@@ -1393,8 +1375,7 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
+                "metadata"
               ],
               "": [
                 "ast"

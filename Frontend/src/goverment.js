@@ -12,7 +12,7 @@ const Hero = () => (
     Dengan Blockchain</h1>
       <p>Ucapkan selamat tinggal pada keraguan dan proses yang rumit. Dengan GovChain Permit, pastikan keaslian surat izin dari Pemerintah Kota secara instan menggunakan teknologi blockchain yang transparan dan tidak dapat diubah.</p>
       <div className="Hero-buttons">
-        <a href="#verifikasi" className="primary">Verifikasi Sekarang</a>
+        <a href="/daftar" className="primary">Buat Izin</a>
         <a href="#dashboard" className="secondary">Dashboard</a>
       </div>
     </div>
