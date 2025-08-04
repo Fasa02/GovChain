@@ -9,7 +9,8 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract Permit is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
-
+    mapping(string => uint256) private _hashToTokenId;
+    
     constructor() ERC721("GovChain Permit", "GCP") {}
 
     function mintPermit(address to, string memory uri) public returns (uint256) {
@@ -18,8 +19,15 @@ contract Permit is ERC721, ERC721URIStorage, Ownable {
         
         _safeMint(to, newTokenId);
         _setTokenURI(newTokenId, uri);
+
+        _hashToTokenId[uri] = newTokenId;
         
         return newTokenId;
+    }
+
+    function getTokenIdByHash(string memory hash) public view returns (uint256) {
+        require(_hashToTokenId[hash] != 0, "Hash not found");
+        return _hashToTokenId[hash];
     }
 
     function burnPermit(uint256 tokenId) public {

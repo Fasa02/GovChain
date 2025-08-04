@@ -1,68 +1,123 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate }           from 'react-router-dom';
-import { Html5Qrcode }           from 'html5-qrcode';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Html5Qrcode } from 'html5-qrcode';
 import './App.css';
 
 export default function ScanQR() {
   const [qrData, setQrData] = useState(null);
-  const [mode, setMode]     = useState(null); // null | 'camera'
-  const navigate            = useNavigate();
+  const [mode, setMode] = useState(null);
+  const navigate = useNavigate();
+  const scannerRef = useRef(null);
 
   useEffect(() => {
-    if (mode === 'camera') {
-      const scanner = new Html5Qrcode('qr-scanner');
-      scanner.start(
-        { facingMode: 'environment' },
-        { fps: 10, qrbox: 250 },
-        decoded => {
-          setQrData(decoded);
-          scanner.stop();
-        },
-        () => {}
-      ).catch(console.error);
-      return () => { scanner.stop().catch(()=>{}); };
-    }
+    let scanner = null;
+
+    const initializeScanner = async () => {
+      if (mode === 'camera') {
+        try {
+          scanner = new Html5Qrcode('qr-scanner');
+          scannerRef.current = scanner;
+
+          await scanner.start(
+            { facingMode: 'environment' },
+            {
+              fps: 10,
+              qrbox: { width: 250, height: 250 }
+            },
+            (decodedText) => {
+              setQrData(decodedText);
+              setMode(null);
+            },
+            (error) => {
+              // Ignore errors during scanning
+            }
+          );
+        } catch (err) {
+          console.error('Error starting scanner:', err);
+          setMode(null);
+        }
+      }
+    };
+
+    initializeScanner();
+
+    // Cleanup function
+    return () => {
+      if (scannerRef.current) {
+        scannerRef.current
+          .stop()
+          .catch(err => console.log('Error stopping scanner:', err));
+        scannerRef.current = null;
+      }
+    };
   }, [mode]);
 
-  const handleFile = e => {
+  const handleFile = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    Html5Qrcode
-      .scanFileV2({ file, qrbox: 250 })
-     .then(decoded => setQrData(decoded))
-      .catch(() => alert('QR tidak terbaca'));
+
+    try {
+      const result = await Html5Qrcode.scanFile(file, true);
+      setQrData(result);
+    } catch (error) {
+      alert('QR tidak terbaca');
+      console.error('Error scanning file:', error);
+    }
+  };
+
+  const handleNavigate = () => {
+    if (qrData) {
+      navigate('/detail', { state: { code: qrData } });
+    }
   };
 
   return (
     <div className="scan-page">
-      <h2>Scan QR</h2>
+      <h2>Scan QR Code</h2>
       <p>Lakukan verifikasi izin usaha dengan mudah.</p>
 
-      {!qrData ? (
-        <div className="scan-actions">
-          {!mode && (
-            <>
-              <button className="btn btn-primary" onClick={() => setMode('camera')}>
-                Ambil Gambar
-              </button>
-              <label className="btn btn-secondary">
-                Unggah QR
-                <input type="file" accept="image/*" onChange={handleFile} hidden />
-              </label>
-            </>
-          )}
-          {mode === 'camera' && (
-            <div id="qr-scanner" style={{ width: 300, margin: '0 auto' }} />
-          )}
-        </div>
-      ) : (
-        <button
-          className="btn btn-primary"
-          onClick={() => navigate('/detail', { state: { code: qrData } })}
-        >
-          Lanjut
-        </button>
-      )}
+      <div className="scan-actions">
+        {!qrData && !mode && (
+          <>
+            <button className="button1" onClick={() => setMode('camera')}>
+              Ambil Gambar
+            </button>
+            <label className="button2">
+              Unggah QR
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFile}
+                hidden
+              />
+            </label>
+          </>
+        )}
+
+        {mode === 'camera' && (
+          <div 
+            id="qr-scanner" 
+            style={{ 
+              width: '300px', 
+              height: '300px', 
+              margin: '0 auto',
+              position: 'relative' 
+            }} 
+          />
+        )}
+
+        {qrData && (
+          <div className="scan-result">
+            <p>QR Code terdeteksi!</p>
+            <button
+              className="btn btn-primary"
+              onClick={handleNavigate}
+            >
+              Lihat Detail
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -18,10 +18,16 @@ export default function WalletStatus() {
     }
   };
 
+  const disconnectWallet = () => {
+    // Bersihkan state dari sisi frontend
+    setIsWalletConnected(false);
+    setWalletAddress('');
+  };
+
   return (
     <>
       {isWalletConnected ? (
-        <div className="wallet-status-text">
+        <div className="wallet-status-text" onClick={disconnectWallet} title="Click to disconnect wallet">
           Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
         </div>
       ) : (

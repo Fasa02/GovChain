@@ -43,9 +43,10 @@ class Web3Service {
             if (!this.contract || !this.account) {
                 throw new Error('Contract or account not initialized');
             }
-
+            
+            const formattedUri = ipfsUri.startsWith("ipfs://") ? ipfsUri : `ipfs://${ipfsUri}`;
             const transaction = await this.contract.methods
-                .mintPermit(this.account, ipfsUri)
+                .mintPermit(this.account, formattedUri)
                 .send({ from: this.account });
 
             return transaction;
@@ -54,6 +55,34 @@ class Web3Service {
             throw error;
         }
     }
+
+    async getPermitDetails(ipfsHash) {
+    try {
+        if (!this.contract || !this.account) {
+            throw new Error('Contract or account not initialized');
+        }
+        console.log("🔍 Hash yang diterima frontend:", ipfsHash);
+        // Get the token ID associated with this IPFS hash
+        const formattedHash = ipfsHash.startsWith("ipfs://") ? ipfsHash : `ipfs://${ipfsHash}`;
+        const tokenId = await this.contract.methods.getTokenIdByHash(formattedHash).call();
+        
+        // Get permit details
+        const permitURI = await this.contract.methods.tokenURI(tokenId).call();
+        const response = await fetch(`https://ipfs.io/ipfs/${permitURI.replace('ipfs://', '')}`);
+        const permitDetails = await response.blob();
+
+        return {
+            tokenId: tokenId,
+            verifier: await this.contract.methods.ownerOf(tokenId).call(),
+            ...permitDetails
+        };
+        } catch (error) {
+            console.error('Error getting permit details:', error);
+            throw error;
+        }
+    }
 }
+
+
 
 export default new Web3Service();
