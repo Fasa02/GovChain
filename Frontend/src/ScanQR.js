@@ -24,12 +24,27 @@ export default function ScanQR() {
               fps: 10,
               qrbox: { width: 250, height: 250 }
             },
-            (decodedText) => {
+            (decodedText, decodedResult) => {
+              console.log("📦 Data hasil scan:", decodedText);
               setQrData(decodedText);
               setMode(null);
+
+              try {
+                const parsed = JSON.parse(decodedText);
+                if (!parsed.tokenId || !parsed.contract || !parsed.chainId) {
+                  throw new Error("QR Code tidak lengkap");
+                }
+
+                // Navigasi ke halaman detail dengan state dari QR
+                navigate("/detail", { state: parsed });
+              } catch (err) {
+                alert("QR Code tidak valid!");
+                console.error(err);
+              }
             },
             (error) => {
-              // Ignore errors during scanning
+              // Optional: log error scanning
+              // console.warn("Scan error:", error);
             }
           );
         } catch (err) {
@@ -41,7 +56,6 @@ export default function ScanQR() {
 
     initializeScanner();
 
-    // Cleanup function
     return () => {
       if (scannerRef.current) {
         scannerRef.current
@@ -50,7 +64,8 @@ export default function ScanQR() {
         scannerRef.current = null;
       }
     };
-  }, [mode]);
+  }, [mode, navigate]);
+
 
   const handleFile = async (e) => {
     const file = e.target.files[0];
@@ -67,14 +82,26 @@ export default function ScanQR() {
 
   const handleNavigate = () => {
     if (qrData) {
-      navigate('/detail', { state: { code: qrData } });
+      try {
+        const parsed = JSON.parse(qrData);
+        navigate('/detail', {
+          state: {
+            tokenId: parsed.tokenId,
+            contract: parsed.contract,
+            chainId: parsed.chainId
+          }
+        });
+      } catch (err) {
+        alert("QR Code tidak valid!");
+        console.error(err);
+      }
     }
   };
 
   return (
     <div className="scan-page">
       <h2>Scan QR Code</h2>
-      <p>Lakukan verifikasi izin usaha dengan mudah.</p>
+      <p>Lakukan verifikasi izin dengan mudah.</p>
 
       <div className="scan-actions">
         {!qrData && !mode && (

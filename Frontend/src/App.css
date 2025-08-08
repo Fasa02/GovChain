@@ -23,6 +23,14 @@ body, html {
   padding-right: 24px;
 }
 
+.containerlg {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
 .header, .footer {
   background: white;
 }
@@ -132,9 +140,9 @@ body, html {
 .Hero-image img { max-width: 300px; width: 75%; }
 
 /* Partners */
-.partners { background: #78336C; padding: 32px 0; }
+.partners { background: #78336C; padding: 32px 0; height:150px; }
 .partners h2 { color: white; text-align: center; margin-bottom: 24px; }
-.partners-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px;  transform: translateX(100%); animation: scroll-left 20s linear infinite;}
+.partners-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px;  transform: translateX(100%); animation: scroll-left 60s linear infinite;}
 .partners-logos img { height: 48px; }
 
 /* Why Blockchain */
@@ -167,12 +175,23 @@ body, html {
 
 
 /* SCAN */
-.scan-page{padding:4rem 1.5rem;background:#fff;text-align:center; min-height: 367px;}
+.scan-page{padding:4rem 1.5rem;background:#fff;text-align:center; min-height: 415px; font-family: "Inter", sans-serif;}
 .scan-page h2{font-size:3.5rem;line-height:1.5;font-weight:1000;color:#78336C;margin-bottom:.75rem}
 .scan-page p{font-size:1.2rem;color:#4A5568;margin-bottom:2rem;}
 .scan-actions{display:flex;gap:1rem;}
 .button1{border-radius: 99999px; background: #FF9B10; padding:1% 3%; font-family: "inter", sans-serif; font-size: 1rem; color: white; box-shadow:0 4px 12px rgba(0,0,0,0.1); border:2px solid #c85300}
+.button1:hover {
+  background: #ff8800;         /* Warna sedikit lebih gelap */
+  transform: translateY(-2px); /* Efek naik sedikit */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
 .button2{border-radius: 99999px; padding:1% 3%; font-family: "inter", sans-serif; font-size: 1rem; color: #78336C; box-shadow:0 4px 12px rgba(0,0,0,0.1); border:2px solid #78336C}
+.button2:hover {
+  background: #78336C;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
 
 @media (max-width: 1024px) {
   .Hero { flex-direction: column; padding: 10%; }
@@ -225,6 +244,8 @@ body, html {
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  min-height:440px;
+  align-content: center;
 }
 
 .detail-card {
@@ -323,7 +344,7 @@ dd {
 .step .label{margin-left:.5rem;margin-right:1rem;color:#475569;}
 .step .bar{flex:1;height:2px;background:#ccc;}
 .step.active + .step .bar{background:#6b21a8;}
-.step-panel{min-height:300px;padding: 1%;}
+.step-panel{min-height:350px;padding: 1%;}
 
 .upload-box{border:2px dashed #d8bfd8;border-radius:8px;padding:4rem;text-align:center;margin-bottom:0rem; padding: 10%;}
 .upload-icon{width:48px;margin-bottom:1rem;padding:2px;}
@@ -331,7 +352,7 @@ dd {
 .summary-card {background:#fff;padding:0.5rem;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);}
 .mint-card{background:#fff;padding:0.5rem;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1); text-align: center;}
 .mint-card p{ margin-top: 28%;}
-.success-card{background:#fff;padding:0.4rem;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);text-align:center;}
+.success-card{background:#fff;padding:0.4rem;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);text-align:center; align-content:center; }
 .success-icon{width:64px;margin:1px 0;}
 .step-nav{display:flex;justify-content:flex-end;gap:1rem;margin-top:1rem;}
 .btn-primary { background:#f97316; color:#fff; border:2px solid #c85300; padding:0.75rem 1.5rem; border-radius:9999px; cursor:pointer; margin-top: 28%;}
@@ -340,7 +361,9 @@ dd {
 .btn-secondary:hover { background:#6b21a8; color:#fff; }
 .explorer-btn { display:block; margin:2rem auto 0; padding:0.75rem 1.5rem; border:none; border-radius:9999px; background:#f97316; color:#fff; cursor:pointer; }
 .explorer-btn:hover { background:#ea580c; }
-.summary-card .QRcode {align-content: center; display:flex; margin-top: 25%;}
+.summary-card .QRcode {align-content: center; display:flex;}
+.btn-primary1 { background:#f97316; color:#fff; border:2px solid #c85300; padding:0.75rem 1.5rem; border-radius:9999px; cursor:pointer;}
+.btn-primary1:hover { background:#ea580c; }
 
 .hash-display {
   margin: 20px 0;

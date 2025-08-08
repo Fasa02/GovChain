@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const { uploadToLocalIPFS } = require('../utils/ipfsClient');
+const path = require('path');
 
 // Upload route
 router.post('/upload', async (req, res) => {
@@ -11,17 +12,17 @@ router.post('/upload', async (req, res) => {
     }
 
     const file = req.files.file;
-    const tempPath = `${__dirname}/../temp/${file.name}`;
-    
+    const tempPath = path.join(__dirname, '..', 'temp', file.name);
+
     // Save file temporarily
     await file.mv(tempPath);
-    
+
     // Upload to IPFS
     const ipfsHash = await uploadToLocalIPFS(tempPath);
-    
+
     // Clean up temp file
     fs.unlinkSync(tempPath);
-    
+
     res.json({
       success: true,
       hash: ipfsHash,
@@ -34,34 +35,47 @@ router.post('/upload', async (req, res) => {
   }
 });
 
-// Add mint route
+// Mint route
 router.post('/mint', async (req, res) => {
   try {
     const summary = req.body;
     console.log('📄 Received summary:', summary);
 
-    // Validate input
     if (!summary || !summary.ipfsHash) {
-      return res.status(400).json({ 
-        success: false,
-        error: 'IPFS hash is required' 
-      });
+      return res.status(400).json({ success: false, error: 'IPFS hash is required' });
     }
 
-    // Return the IPFS hash
+    // Buat file metadata JSON
+    const metadata = {
+      jumlah: summary.jumlah,
+      jenis: summary.jenis,
+      pemilik: summary.pemilik,
+      terbit: summary.terbit,
+      sampai: summary.sampai,
+      ipfs_pdf: summary.ipfsHash
+    };
+
+    const metadataPath = path.join(__dirname, '..', 'temp', `metadata-${Date.now()}.json`);
+    fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
+
+    // Upload metadata JSON ke IPFS
+    const metadataHash = await uploadToLocalIPFS(metadataPath);
+
+    // Hapus file sementara
+    fs.unlinkSync(metadataPath);
+
+    // ✅ Kirim metadataHash ke frontend
     res.json({
       success: true,
-      hash: summary.ipfsHash,
-      message: 'Document registered successfully'
+      metadataHash: metadataHash,
+      message: 'Metadata uploaded and ready to mint'
     });
 
   } catch (error) {
     console.error('Minting error:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: error.message 
-    });
+    res.status(500).json({ success: false, error: error.message });
   }
 });
+
 
 module.exports = router;

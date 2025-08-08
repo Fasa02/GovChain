@@ -24,9 +24,9 @@ const Hero = () => (
 
 const Partners = () => (
   <section className="partners" id="partners">
-    <div className="container">
+    <div className="containerlg">
       <h2>Didukung Oleh</h2>
-      <div className="partners-logos">{[1,2,3,4,5].map(i => <img key={i} src={`/images/logo${i}.png`} alt={`Logo ${i}`} />)}</div>
+      <div className="partners-logos">{[1,2,3,4,5,6,7,8,9,10].map(i => <img key={i} src={`/images/logo${i}.png`} alt={`Logo ${i}`} />)}</div>
     </div>
   </section>
 );
@@ -115,7 +115,7 @@ function MulaiMenggunakan() {
       <div className="gs-container">
         <h2 className="gs-title">Mulai Menggunakan GovChain Permit</h2>
         <div className="gs-buttons">
-          <button className="gs-primary" onClick={() => navigate('/buat-izin')}>
+          <button className="gs-primary" onClick={() => navigate('/daftar')}>
             Buat Izin
           </button>
           <button className="gs-secondary" onClick={() => navigate('/dashboard')}>

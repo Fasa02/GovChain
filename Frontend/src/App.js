@@ -52,9 +52,9 @@ const Hero = () => (
 
 const Partners = () => (
   <section className="partners" id="partners">
-    <div className="container">
+    <div className="containerlg">
       <h2>Didukung Oleh</h2>
-      <div className="partners-logos">{[1,2,3,4,5].map(i => <img key={i} src={`/images/logo${i}.png`} alt={`Logo ${i}`} />)}</div>
+      <div className="partners-logos">{[1,2,3,4,5,6,7,8,9,10].map(i => <img key={i} src={`/images/logo${i}.png`} alt={`Logo ${i}`} />)}</div>
     </div>
   </section>
 );
@@ -73,7 +73,7 @@ const WhyBlockchain = () => (
       <h2>Mengapa Blockchain?</h2>
       <p>Secara sederhana, bayangkan blockchain sebagai sebuah buku besar digital yang super aman. Teknologi ini adalah fondasi yang membuat setiap verifikasi di GovChain Permit memiliki integritas tertinggi.</p>
       <div className="features">
-        <FeatureCard img="/images/silang.png" title="Tidak dapat diubah">Sekali sebuah catatan izin dicatat, ia tidak dapat dihapus atau diubah. Ini menciptakan bukti digital permanen yang mustahil untuk dipalsukan.</FeatureCard>
+        <FeatureCard img="/images/close-circle.svg" title="Tidak dapat diubah">Sekali sebuah catatan izin dicatat, ia tidak dapat dihapus atau diubah. Ini menciptakan bukti digital permanen yang mustahil untuk dipalsukan.</FeatureCard>
         <FeatureCard img="/images/desentral.png" title="Teredesentralisasi">Catatan tidak disimpan di satu server pusat, melainkan disebar di banyak titik— membuatnya sangat tahan terhadap kegagalan dan serangan siber.</FeatureCard>
         <FeatureCard img="/images/transparan.png" title="Transparan">Semua pihak yang berwenang dapat melihat dan memverifikasi catatan izin dengan jelas, menciptakan jejak audit yang masuk akal dan meningkatkan akuntabilitas.</FeatureCard>
       </div>

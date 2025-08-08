@@ -12,30 +12,29 @@ export default function DetailPage() {
   useEffect(() => {
     const fetchPermitDetails = async () => {
       try {
-        if (!state?.code) {
-          throw new Error('No QR code provided');
+        if (!state?.tokenId || !state?.contract || !state?.chainId) {
+          throw new Error('QR Code tidak lengkap');
         }
 
-        // Connect to Web3
-        const connected = await Web3Service.connectWallet();
-        if (!connected) {
-          throw new Error('Failed to connect to blockchain');
-        }
+      // Koneksi ke Web3
+      const connected = await Web3Service.connectWallet();
+      if (!connected) throw new Error('Gagal konek wallet');
 
-        // Fetch permit details from smart contract using the IPFS hash
-        const ipfsHash = state.code;
-        const permitDetails = await Web3Service.getPermitDetails(ipfsHash);
+      // Ambil detail dari tokenId
+      const permitDetails = await Web3Service.getPermitDetailsByTokenId(state.tokenId);
 
         setDetail({
           status: 'Asli, Terverifikasi di Blockchain',
-          nft: permitDetails.tokenId,
+          nft: state.tokenId,
           // wallet: permitDetails.verifier,
           // izin: permitDetails.permitNumber,
           // jenis: permitDetails.permitType,
-          // pemilik: permitDetails.ownerName,
+          pemilik: permitDetails.owner,
           // tanggal: permitDetails.issueDate,
           // berlaku: permitDetails.expiryDate,
-          ipfsHash: ipfsHash
+          ipfsHash: permitDetails.ipfsHash,
+          txHash: state.txHash,
+          meta: permitDetails.metadata
         });
       } catch (err) {
         console.error('Error fetching permit details:', err);
@@ -77,18 +76,11 @@ export default function DetailPage() {
           Status Keaslian: <span className="badge">{detail.status}</span>
         </div>
         <dl>
-          <dt>Nomor NFT</dt><dd>{detail.nft}</dd>
-          <dt>Wallet Verifikator</dt><dd>{detail.wallet}</dd>
-          <dt>Nomor Izin</dt><dd>{detail.izin}</dd>
-          <dt>Jenis Izin</dt><dd>{detail.jenis}</dd>
-          <dt>Nama Pemilik Usaha</dt><dd>{detail.pemilik}</dd>
-          <dt>Tanggal Terbit</dt><dd>{detail.tanggal}</dd>
-          <dt>Berlaku Hingga</dt><dd>{detail.berlaku}</dd>
         </dl>
         {detail.status.includes('Asli') && (
           <button 
             className="btn btn-secondary"
-            onClick={() => window.open(`https://custom-block-explorer.vercel.app/tx/${detail.ipfsHash}`)}
+            onClick={() => window.open(`https://custom-block-explorer.vercel.app/tx/${detail.txHash}`)}
           >
             Lihat di Blockchain Explorer
           </button>
